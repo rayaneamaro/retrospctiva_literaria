@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <title>Retrospectiva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo">📚</div>
+      <div class="title">
+        <h1 class="center-title">Retrospectiva</h1>
+        <p>Importe um CSV com Notas em ⭐ e meia ⭐ com 🧦</p>
+      </div>
+    </div>
+    <div class="actions">
+      <label class="file-input">
+        <input id="csvInput" type="file" accept=".csv,text/csv" />
+        <span>Carregar CSV</span>
+      </label>
+      <select id="yearSelect" class="year-select" title="Selecione o ano">
+        <option value="">Todos os anos</option>
+      </select>
+      <button id="demoBtn" class="ghost">Exemplo</button>
+      <button id="downloadImageBtn" class="primary">Baixar imagem</button>
+    </div>
+  </header>
+
+  <main class="container" id="captureArea">
+    <section class="filters no-print">
+      <div class="filter-group">
+        <label>Autor</label>
+        <input type="text" id="authorFilter" placeholder="Ex.: Alyson Noel" />
+      </div>
+      <div class="filter-group">
+        <label>Editora</label>
+        <input type="text" id="publisherFilter" placeholder="Ex.: Intrínseca" />
+      </div>
+      <div class="filter-group">
+        <label>Notas (mín - máx)</label>
+        <div class="grid-2">
+          <input type="number" id="minRating" min="0" max="5" step="0.5" placeholder="0" />
+          <input type="number" id="maxRating" min="0" max="5" step="0.5" placeholder="5" />
+        </div>
+      </div>
+      <button id="applyFilters" class="primary">Aplicar filtros</button>
+      <button id="clearFilters" class="ghost">Limpar</button>
+    </section>
+
+    <section class="summary-cards">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📊</span>
+          <h3>Total de livros</h3>
+        </div>
+        <div class="card-value" id="totalBooks">0</div>
+        <div class="card-sub">Registros filtrados</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h3>Total de páginas</h3>
+        </div>
+        <div class="card-value" id="totalPages">0</div>
+        <div class="card-sub">Soma de páginas</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">⚖️</span>
+          <h3>Média de páginas</h3>
+        </div>
+        <div class="card-value" id="avgPages">0</div>
+        <div class="card-sub">Por livro</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">⭐</span>
+          <h3>Média de notas</h3>
+        </div>
+        <div class="card-value" id="avgRating">0</div>
+        <div class="card-sub">Escala 0–5</div>
+      </div>
+    </section>
+
+    <section class="charts">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Distribuição de notas</h3>
+          <div class="panel-sub">Quantidade por nota</div>
+        </div>
+        <div class="panel-body">
+          <canvas id="ratingChart"></canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Top autores</h3>
+          <div class="panel-sub">Top 10 por quantidade</div>
+        </div>
+        <div class="panel-body">
+          <canvas id="authorsChart"></canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Top editoras</h3>
+          <div class="panel-sub">Top 10 por quantidade</div>
+        </div>
+        <div class="panel-body">
+          <canvas id="publishersChart"></canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Evolução por índice</h3>
+          <div class="panel-sub">Livros ao longo da lista (1..N)</div>
+        </div>
+        <div class="panel-body">
+          <canvas id="indexSeriesChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards-list">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Livros</h3>
+          <div class="panel-sub">Cards com detalhes</div>
+        </div>
+        <div class="panel-body" id="cardsContainer"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer no-print">
+    <div>
+      <strong>Formato CSV esperado</strong>:
+      Título,Autor,Editora,Páginas,Notas (opcional: Ano)
+    </div>
+    <div class="footer-actions">
+      <a class="ghost" href="./example.csv" download>Baixar exemplo</a>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
