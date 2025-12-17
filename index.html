@@ -25,7 +25,7 @@
     }
 
     /* Upload Section Redesign */
-    . upload-section-wrapper {
+    .upload-section-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -44,7 +44,8 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 2rem;
-      animation: float 3s ease-in-out infinite;
+      /* animation desativada para página estável */
+      animation: none;
     }
 
     @keyframes float {
@@ -52,7 +53,7 @@
       50% { transform: translateY(-10px); }
     }
 
-    .book-icon-container . icon {
+    .book-icon-container .icon {
       font-size: 4rem;
       filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.5));
     }
@@ -67,7 +68,7 @@
       font-weight: 700;
     }
 
-    .upload-section-wrapper . subtitle {
+    .upload-section-wrapper .subtitle {
       font-size:  1.125rem;
       color: #94a3b8;
       max-width: 600px;
@@ -126,7 +127,7 @@
       box-shadow: 0 6px 30px rgba(34, 211, 238, 0.5);
     }
 
-    .upload-btn-new . icon {
+    .upload-btn-new .icon {
       font-size:  1.25rem;
     }
 
@@ -183,7 +184,7 @@
       text-align: center;
     }
 
-    .metric-card . icon {
+    .metric-card .icon {
       font-size:  1.5rem;
       margin-bottom: 0.5rem;
     }
@@ -200,9 +201,9 @@
       color: #f8fafc;
     }
 
-    . metric-card.cyan . icon { color: #22d3ee; }
-    . metric-card.purple .icon { color: #a78bfa; }
-    . metric-card.yellow .icon { color: #fbbf24; }
+    .metric-card.cyan .icon { color: #22d3ee; }
+    .metric-card.purple .icon { color: #a78bfa; }
+    .metric-card.yellow .icon { color: #fbbf24; }
     .metric-card.green .icon { color: #34d399; }
     .metric-card.red .icon { color: #f87171; }
     .metric-card.pink .icon { color: #f472b6; }
@@ -211,7 +212,7 @@
     .tabs {
       display: flex;
       gap: 0.5rem;
-      margin-bottom: 1. 5rem;
+      margin-bottom: 1.5rem;
       flex-wrap: wrap;
     }
 
@@ -230,7 +231,7 @@
       background:  rgba(71, 85, 105, 0.5);
     }
 
-    .tab-btn. active {
+    .tab-btn.active {
       background: linear-gradient(135deg, #22d3ee, #a78bfa);
       color: #0f172a;
       border-color: transparent;
@@ -252,7 +253,7 @@
       margin-bottom: 2rem;
     }
 
-    . chart-card {
+    .chart-card {
       background:  rgba(30, 41, 59, 0.8);
       border: 1px solid rgba(71, 85, 105, 0.5);
       border-radius: 12px;
@@ -278,7 +279,7 @@
       gap: 0.75rem;
     }
 
-    . bar-label {
+    .bar-label {
       width: 100px;
       font-size: 0.875rem;
       color: #94a3b8;
@@ -309,7 +310,7 @@
       min-width: 30px;
     }
 
-    . bar-fill.cyan { background: linear-gradient(90deg, #22d3ee, #06b6d4); }
+    .bar-fill.cyan { background: linear-gradient(90deg, #22d3ee, #06b6d4); }
     .bar-fill.purple { background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
     .bar-fill.green { background: linear-gradient(90deg, #34d399, #10b981); }
     .bar-fill.yellow { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
@@ -329,13 +330,13 @@
       padding:  1rem;
     }
 
-    .book-card . title {
+    .book-card .title {
       font-weight: 600;
       color:  #f8fafc;
       margin-bottom: 0.25rem;
     }
 
-    . book-card .author {
+    .book-card .author {
       font-size: 0.875rem;
       color: #94a3b8;
       margin-bottom: 0.5rem;
@@ -353,7 +354,7 @@
       color: #fbbf24;
     }
 
-    .book-card. favorite {
+    .book-card.favorite {
       border-color: #f472b6;
       box-shadow: 0 0 20px rgba(244, 114, 182, 0.2);
     }
@@ -442,7 +443,7 @@
         height: 100px;
       }
 
-      . book-icon-container .icon {
+      .book-icon-container .icon {
         font-size: 3rem;
       }
     }
@@ -870,15 +871,26 @@
       const w = 1080;
       const h = 1920;
 
-      // Background gradient
+      // Fundo com gradiente + brilho suave
       const gradient = ctx.createLinearGradient(0, 0, w, h);
-      gradient.addColorStop(0, '#0a0e1a');
-      gradient.addColorStop(0.5, '#1a1430');
-      gradient.addColorStop(1, '#2d1b3d');
+      gradient.addColorStop(0, '#0b1224');
+      gradient.addColorStop(0.45, '#111a36');
+      gradient.addColorStop(1, '#1b1033');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, w, h);
 
-      // Title
+      // Glow de fundo
+      const glow = ctx.createRadialGradient(w * 0.5, h * 0.25, 80, w * 0.5, h * 0.25, 520);
+      glow.addColorStop(0, 'rgba(167, 139, 250, 0.35)');
+      glow.addColorStop(1, 'rgba(11, 18, 36, 0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, w, h);
+
+      // Faixa superior
+      ctx.fillStyle = 'rgba(34, 211, 238, 0.14)';
+      ctx.fillRect(160, 140, w - 320, 8);
+
+      // Título
       ctx.textAlign = 'center';
       const titleGrad = ctx.createLinearGradient(0, 0, w, 0);
       titleGrad.addColorStop(0, '#22d3ee');
@@ -886,25 +898,26 @@
       ctx.fillStyle = titleGrad;
       ctx.font = 'bold 64px -apple-system, BlinkMacSystemFont, sans-serif';
       ctx.fillText('Retrospectiva Literária', w / 2, 120);
-      ctx.font = 'bold 80px -apple-system, BlinkMacSystemFont, sans-serif';
-      ctx.fillStyle = '#f8fafc';
-      ctx.fillText(selectedYear, w / 2, 210);
 
-      // Cards
+      ctx.font = 'bold 88px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillStyle = '#e2e8f0';
+      ctx.fillText(selectedYear, w / 2, 220);
+
+      // Cartões
       const cards = [
         { icon: '📖', label: 'Livros lidos', value: stats.totalBooks, color: '#22d3ee' },
-        { icon: '📄', label: 'Páginas lidas', value: stats.totalPages. toLocaleString('pt-BR'), color: '#a78bfa' },
-        { icon: '⭐', label: 'Média de notas', value:  stats.avgRating, color: '#fbbf24' },
-        { icon: '📈', label:  'Nota mais alta', value: stats.maxRating, color: '#34d399' },
+        { icon: '📄', label: 'Páginas lidas', value: stats.totalPages.toLocaleString('pt-BR'), color: '#a78bfa' },
+        { icon: '⭐', label: 'Média de notas', value: stats.avgRating, color: '#fbbf24' },
+        { icon: '📈', label: 'Nota mais alta', value: stats.maxRating, color: '#34d399' },
         { icon: '📉', label: 'Nota mais baixa', value: stats.minRating, color: '#f87171' },
-        { icon:  '🏢', label: 'Editora favorita', value: stats.topPublisher, color: '#a78bfa' }
+        { icon: '🏢', label: 'Editora favorita', value: stats.topPublisher, color: '#a78bfa' }
       ];
 
       const cardW = 460;
       const cardH = 200;
       const gap = 40;
       const startX = (w - (cardW * 2 + gap)) / 2;
-      let startY = 320;
+      let startY = 340;
 
       cards.forEach((card, i) => {
         const col = i % 2;
@@ -912,35 +925,52 @@
         const x = startX + col * (cardW + gap);
         const y = startY + row * (cardH + gap);
 
-        // Card background
-        ctx.fillStyle = 'rgba(30, 41, 59, 0.9)';
+        // Sombra suave
+        ctx.save();
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
+        ctx.shadowBlur = 22;
+        ctx.shadowOffsetY = 10;
+
+        // Cartão em glassmorphism
+        const cardBg = ctx.createLinearGradient(x, y, x + cardW, y + cardH);
+        cardBg.addColorStop(0, 'rgba(34, 51, 82, 0.65)');
+        cardBg.addColorStop(1, 'rgba(22, 28, 46, 0.75)');
+        ctx.fillStyle = cardBg;
         ctx.beginPath();
-        ctx.roundRect(x, y, cardW, cardH, 16);
+        ctx.roundRect(x, y, cardW, cardH, 18);
         ctx.fill();
 
-        // Border
-        ctx.strokeStyle = 'rgba(71, 85, 105, 0.5)';
+        // Borda com brilho
+        const strokeGrad = ctx.createLinearGradient(x, y, x + cardW, y + cardH);
+        strokeGrad.addColorStop(0, 'rgba(34, 211, 238, 0.45)');
+        strokeGrad.addColorStop(1, 'rgba(167, 139, 250, 0.45)');
+        ctx.strokeStyle = strokeGrad;
         ctx.lineWidth = 2;
-        ctx. stroke();
+        ctx.stroke();
+        ctx.restore();
 
-        // Icon and label
+        // Conteúdo
         ctx.textAlign = 'left';
         ctx.font = '28px -apple-system, sans-serif';
         ctx.fillStyle = card.color;
-        ctx.fillText(card.icon + '  ' + card.label, x + 24, y + 50);
+        ctx.fillText(`${card.icon}  ${card.label}`, x + 26, y + 52);
 
-        // Value
-        ctx.font = 'bold 56px -apple-system, sans-serif';
+        ctx.font = 'bold 58px -apple-system, sans-serif';
         ctx.fillStyle = '#f8fafc';
-        const valStr = String(card.value).substring(0, 12);
-        ctx.fillText(valStr, x + 24, y + 140);
+        const valStr = String(card.value).substring(0, 14);
+        ctx.fillText(valStr, x + 26, y + 140);
       });
 
-      // Footer
+      // Rodapé + assinatura
       ctx.textAlign = 'center';
-      ctx.font = '24px -apple-system, sans-serif';
-      ctx.fillStyle = '#475569';
-      ctx.fillText('GERADO VIA RETROSPECTIVA DE LEITURAS', w / 2, h - 60);
+      ctx.font = '22px -apple-system, sans-serif';
+      ctx.fillStyle = '#8ba3c7';
+      ctx.fillText('Gerado via Retrospectiva de Leituras', w / 2, h - 120);
+
+      ctx.textAlign = 'right';
+      ctx.font = '20px -apple-system, sans-serif';
+      ctx.fillStyle = '#a78bfa';
+      ctx.fillText('github.com/rayaneamaro', w - 80, h - 80);
 
       // Download
       const link = document.createElement('a');
