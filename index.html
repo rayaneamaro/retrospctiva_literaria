@@ -514,7 +514,7 @@
             <div id="ratingChart" class="bar-chart"></div>
           </div>
           <div class="chart-card">
-            <h3>Top Autores</h3>
+            <h3>Autores favoritos</h3>
             <div id="authorsChart" class="bar-chart"></div>
           </div>
           <div class="chart-card">
@@ -811,8 +811,8 @@
         </div>
         <div class="metric-card cyan">
           <div class="icon">✍️</div>
-          <div class="label">Top autor(a)</div>
-          <div class="value" style="font-size: 1.2rem;">${stats.bestAuthorName}${stats.bestAuthorAvg !== '-' ? ` (${stats.bestAuthorAvg})` : ''}</div>
+          <div class="label">Autor(a) favorito(a)</div>
+          <div class="value" style="font-size: 1.2rem;">${stats.bestAuthorName}</div>
         </div>
         <div class="metric-card pink">
           <div class="icon">❤️</div>
@@ -941,7 +941,7 @@
         { icon: '📈', label: 'Nota mais alta', value: stats.maxRating, color: '#34d399' },
         { icon: '📉', label: 'Nota mais baixa', value: stats.minRating, color: '#f87171' },
         { icon: '🏢', label: 'Editora mais lida', value: stats.topPublisher, color: '#a78bfa' },
-        { icon: '✍️', label: 'Top autor(a)', value: stats.bestAuthorName !== '-' ? `${stats.bestAuthorName} (${stats.bestAuthorAvg})` : '-', color: '#fbbf24' }
+        { icon: '✍️', label: 'Autor(a) favorito(a)', value: stats.bestAuthorName, color: '#fbbf24' }
       ];
 
       const cardW = 420;
