@@ -946,6 +946,34 @@
       const startX = (w - (cardW * 2 + gap)) / 2;
       let startY = 360;
 
+      function fitFontSize(text, baseSize, maxWidth) {
+        let size = baseSize;
+        while (size > 32) {
+          ctx.font = `bold ${size}px -apple-system, sans-serif`;
+          if (ctx.measureText(text).width <= maxWidth) break;
+          size -= 2;
+        }
+        return size;
+      }
+
+      function wrapText(text, maxWidth, fontSize) {
+        ctx.font = `bold ${fontSize}px -apple-system, sans-serif`;
+        const words = String(text).split(' ');
+        const lines = [];
+        let current = '';
+        for (const word of words) {
+          const testLine = current ? `${current} ${word}` : word;
+          if (ctx.measureText(testLine).width <= maxWidth) {
+            current = testLine;
+          } else {
+            if (current) lines.push(current);
+            current = word;
+          }
+        }
+        if (current) lines.push(current);
+        return lines.length ? lines : [String(text)];
+      }
+
       cards.forEach((card, i) => {
         const col = i % 2;
         const row = Math.floor(i / 2);
@@ -983,18 +1011,22 @@
         ctx.fillText(`${card.icon}  ${card.label}`, x + cardW / 2, y + 54);
 
         const baseValue = String(card.value);
-        let valueFontSize = 58;
-        if (card.label === 'Editora mais lida' || card.label === 'Autor(a) favorito(a)') {
-          valueFontSize = 48;
-        }
-        if (baseValue.length > 15) {
-          valueFontSize = Math.min(valueFontSize, 44);
-        }
+        const maxValueWidth = cardW - 60;
+        let valueFontSize = card.label === 'Editora mais lida' || card.label === 'Autor(a) favorito(a)'
+          ? 48
+          : 58;
+        valueFontSize = fitFontSize(baseValue, valueFontSize, maxValueWidth);
+        const lines = wrapText(baseValue, maxValueWidth, valueFontSize).slice(0, 2);
+        const lineHeight = valueFontSize + 6;
+        const totalHeight = lines.length * lineHeight;
+        let startYValue = y + 130;
+        if (lines.length > 1) startYValue -= (totalHeight - lineHeight) / 2;
 
         ctx.font = `bold ${valueFontSize}px -apple-system, sans-serif`;
         ctx.fillStyle = '#f8fafc';
-        const valStr = baseValue.length > 18 ? `${baseValue.slice(0, 17)}…` : baseValue;
-        ctx.fillText(valStr, x + cardW / 2, y + 140);
+        lines.forEach((line, idx) => {
+          ctx.fillText(line, x + cardW / 2, startYValue + idx * lineHeight);
+        });
       });
 
       // Rodapé + assinatura
