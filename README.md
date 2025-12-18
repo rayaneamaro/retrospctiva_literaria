@@ -3,7 +3,7 @@
 Aplicação single-page em HTML/CSS/JS que transforma um CSV de leituras em um painel com métricas, destaques e exportação em PNG.
 
 ## Página online
-- https://rayaneamaro.github.io/retrospctiva_literaria/
+- https://rayaneamaro.github.io/retrospectiva_literaria/
 - Publicação direta do `main` no GitHub Pages para testar upload de CSV, visualizar métricas e exportar o PNG.
 
 ## Como usar
